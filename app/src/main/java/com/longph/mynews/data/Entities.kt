@@ -2,7 +2,6 @@ package com.longph.domain
 
 import com.google.gson.annotations.SerializedName
 
-
 data class News(
     @SerializedName("document_id") val documentId: String,
     @SerializedName("title") val title: String,
@@ -12,8 +11,12 @@ data class News(
     @SerializedName("publisher") val publisher: Publisher,
     @SerializedName("origin_url") val originUrl: String,
     @SerializedName("avatar") val avatar: Image,
-    @SerializedName("image") val images: List<Image>,
+    @SerializedName("images") val images: List<Image>,
     @SerializedName("content") val content: Content
+)
+
+data class NewsItems(
+    val items: List<News>
 )
 
 data class Publisher(

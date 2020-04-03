@@ -9,6 +9,7 @@ buildscript {
         gson_version = '2.8.6'
         nav_version = '2.2.1'
         glide_version = '4.11.0'
+        giraffeplayer_version = '0.1.25'
     }
     repositories {
         google()

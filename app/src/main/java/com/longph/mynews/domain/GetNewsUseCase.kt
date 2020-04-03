@@ -7,7 +7,7 @@ import javax.inject.Singleton
 
 @Singleton
 class GetNewsUseCase @Inject constructor(val newsRepository: NewsRepository){
-    suspend fun getNewsList() : ApiResponse<List<News>>{
+    suspend fun getNewsList() : ApiResponse<NewsItems>{
         return newsRepository.getNewsList()
     }
 

@@ -1,0 +1,40 @@
+<layout>
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="com.longph.mynews.presentation.viewmodel.NewsFeedViewModel" />
+    </data>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvNewsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/llLoadingCircle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_dim_background"
+            android:gravity="center"
+            >
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>
+

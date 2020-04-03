@@ -2,6 +2,7 @@ package com.longph.mynews.data.repository
 
 import androidx.annotation.VisibleForTesting
 import com.longph.domain.News
+import com.longph.domain.NewsItems
 import com.longph.domain.NewsRepository
 import com.longph.movieapp_mvvm.data.RestAPIs
 import com.longph.movieapp_mvvm.data.RestClient
@@ -15,10 +16,10 @@ class NewsRepositoryImpl constructor(
     val restAPIs: RestAPIs
 ) : NewsRepository{
 
-    override suspend fun getNewsList(): ApiResponse<List<News>> {
+    override suspend fun getNewsList(): ApiResponse<NewsItems> {
         return safeApiCall(
             call = {
-                var result = restAPIs.getNewsList().await()
+                var result = restAPIs.getNewsList()
                 handleResult(result)
             },
             errorMessage = "IO Exception"
@@ -28,7 +29,7 @@ class NewsRepositoryImpl constructor(
     override suspend fun getNewDetail(newsId: String): ApiResponse<News> {
         return safeApiCall(
             call = {
-                var result = restAPIs.getNewsDetail().await()
+                var result = restAPIs.getNewsDetail()
                 handleResult(result)
             },
             errorMessage = "IO Exception"
