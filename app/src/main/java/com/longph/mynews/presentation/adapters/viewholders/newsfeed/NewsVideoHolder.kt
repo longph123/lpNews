@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.longph.domain.News
 import com.longph.mynews.R
-import com.longph.mynews.presentation.widgets.CustomVideoView
 import kotlinx.android.synthetic.main.item_news.view.*
 import tcking.github.com.giraffeplayer2.VideoInfo
 import tcking.github.com.giraffeplayer2.VideoView
@@ -38,13 +37,7 @@ class NewsVideoHolder(
         playButton.setImageResource(R.drawable.ic_play_button)
 
         videoPreview.layoutParams = FrameLayout.LayoutParams(deviceWidth, videoPreviewHeight)
-        Glide.with(itemView.context)
-            .load(news.content.previewImage.href)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .centerCrop()
-            .placeholder(R.mipmap.ic_launcher)
-            .dontAnimate()
-            .into(videoPreview)
+        setupImageLoader(itemView.context, news.content.previewImage.href, videoPreview)
         itemView.flContent.addView(videoPreview)
         itemView.flContent.addView(playButton)
     }

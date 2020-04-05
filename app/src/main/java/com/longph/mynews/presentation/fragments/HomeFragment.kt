@@ -27,8 +27,9 @@ class HomeFragment: Fragment() {
         var tabNames = resources.getStringArray(R.array.tab_names)
         adapter = HomeCollectionsAdapter(this)
         vpPages.adapter = adapter
-        TabLayoutMediator(tlTabs, vpPages, { tab, position ->
+        vpPages.isUserInputEnabled = false
+        TabLayoutMediator(tlTabs, vpPages) { tab, position ->
             tab.text = tabNames[position]
-        }).attach()
+        }.attach()
     }
 }

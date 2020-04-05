@@ -12,7 +12,15 @@ data class News(
     @SerializedName("origin_url") val originUrl: String,
     @SerializedName("avatar") val avatar: Image,
     @SerializedName("images") val images: List<Image>,
-    @SerializedName("content") val content: Content
+    @SerializedName("content") val content: Content,
+    @SerializedName("sections") val sections: List<Section>
+)
+
+data class Section(
+    @SerializedName("section_type") val sectionType: Int,
+    var title: String?,
+    var description: String?,
+    var content: Content?
 )
 
 data class NewsItems(
@@ -35,5 +43,16 @@ data class Image(
 data class Content(
     @SerializedName("preview_image") val previewImage: Image,
     val href: String,
-    val duration: Int
+    val duration: Int,
+    val text: String,
+    val markups: List<Markup>,
+    val caption: String
 )
+
+data class Markup(
+    @SerializedName("markup_type") val markupType: Int,
+    val start: Int,
+    val end: Int,
+    val href: String
+)
+
