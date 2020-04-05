@@ -4,6 +4,14 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
+        android:id="@+id/feedDetailFragment"
+        android:name="com.longph.mynews.presentation.fragments.FeedDetailFragment"
+        android:label="FeedDetailFragment">
+        <argument
+            android:name="newsId"
+            app:argType="string" />
+    </fragment>
+    <fragment
         android:id="@+id/homeFragment"
         android:name="com.longph.mynews.presentation.fragments.HomeFragment"
         android:label="HomeFragment" >
@@ -11,8 +19,4 @@
             android:id="@+id/action_homeFragment_to_feedDetailFragment"
             app:destination="@id/feedDetailFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/feedDetailFragment"
-        android:name="com.longph.mynews.presentation.fragments.FeedDetailFragment"
-        android:label="FeedDetailFragment" />
 </navigation>

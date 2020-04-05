@@ -9,7 +9,6 @@ class HomeCollectionsAdapter(fragment: Fragment) : FragmentStateAdapter(fragment
     override fun getItemCount(): Int = 5
 
     override fun createFragment(position: Int): Fragment {
-        val fragment = NewsFeedFragment()
-        return fragment
+        return NewsFeedFragment()
     }
 }

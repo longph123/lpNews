@@ -9,7 +9,7 @@ import com.longph.mynews.presentation.adapters.viewholders.newsfeed.NewsFeedHold
 import com.longph.mynews.presentation.adapters.viewholders.newsfeed.NewsGalleriesHolder
 import com.longph.mynews.presentation.adapters.viewholders.newsfeed.NewsVideoHolder
 
-class NewsFeedAdapter : RecyclerView.Adapter<NewsFeedHolder>(){
+class NewsFeedAdapter() : RecyclerView.Adapter<NewsFeedHolder>(){
 
     enum class FeedType {
         OVERVIEW, VIDEO, GALLERY
