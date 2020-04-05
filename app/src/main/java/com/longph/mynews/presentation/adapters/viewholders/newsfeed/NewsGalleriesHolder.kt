@@ -19,7 +19,7 @@ class NewsGalleriesHolder(
     override fun setupData(position: Int, news: News) {
         super.setupData(position, news)
 
-        news.images.apply {
+        news.images?.apply {
             var recyclerView = RecyclerView(itemView.context).apply {
                 layoutParams = FrameLayout.LayoutParams(
                     FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT
