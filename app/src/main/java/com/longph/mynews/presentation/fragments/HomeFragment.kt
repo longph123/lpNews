@@ -1,7 +1,6 @@
 package com.longph.mynews.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import com.longph.mynews.R
 import com.longph.mynews.presentation.adapters.HomeCollectionsAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment: Fragment() {
+class HomeFragment : Fragment() {
 
     lateinit var adapter: HomeCollectionsAdapter
 

@@ -12,13 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.longph.mynews.MainApplication
 import com.longph.mynews.databinding.LayoutNewsListBinding
 import com.longph.mynews.presentation.adapters.NewsDetailAdapter
-import com.longph.mynews.presentation.adapters.viewholders.newsfeed.NewsFeedHolder
 import com.longph.mynews.presentation.viewmodel.NewsFeedViewModel
 import com.longph.mynews.presentation.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.layout_news_list.*
 import javax.inject.Inject
 
-class FeedDetailFragment : Fragment(){
+class FeedDetailFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<NewsFeedViewModel>
@@ -30,7 +29,7 @@ class FeedDetailFragment : Fragment(){
     override fun onAttach(context: Context) {
         super.onAttach(context)
         application = activity?.application as MainApplication
-        application?.applicationComponent?.inject(this)
+        application.applicationComponent.inject(this)
     }
 
     override fun onCreateView(
@@ -39,7 +38,10 @@ class FeedDetailFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         newsListBinding = LayoutNewsListBinding.inflate(inflater, container, false).apply {
-            viewModel = ViewModelProvider(viewModelStore, viewModelFactory).get(NewsFeedViewModel::class.java)
+            viewModel = ViewModelProvider(
+                viewModelStore,
+                viewModelFactory
+            ).get(NewsFeedViewModel::class.java)
         }
         return newsListBinding.root
     }
@@ -50,20 +52,20 @@ class FeedDetailFragment : Fragment(){
         newsListBinding.viewModel?.getNewsDetail("newsId")
     }
 
-    private fun setupViews(){
+    private fun setupViews() {
         var linearLayoutManager = LinearLayoutManager(activity!!)
         rcvNewsList.layoutManager = linearLayoutManager
         adapter = NewsDetailAdapter()
         rcvNewsList.adapter = adapter
     }
 
-    private fun setupObservers(){
+    private fun setupObservers() {
         newsListBinding.viewModel?.getNewsDetailLiveData?.observe(viewLifecycleOwner, Observer {
             adapter.updateList(it.title, it.description, it.sections)
         })
 
-        newsListBinding.viewModel?.loadingData?.observe(viewLifecycleOwner, Observer {isLoading ->
-            if(isLoading)
+        newsListBinding.viewModel?.loadingData?.observe(viewLifecycleOwner, Observer { isLoading ->
+            if (isLoading)
                 llLoadingCircle.visibility = View.VISIBLE
             else
                 llLoadingCircle.visibility = View.GONE

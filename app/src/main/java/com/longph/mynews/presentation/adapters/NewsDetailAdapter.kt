@@ -3,15 +3,13 @@ package com.longph.mynews.presentation.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.longph.domain.Content
-import com.longph.domain.Image
 import com.longph.domain.Section
 import com.longph.mynews.databinding.ItemSectionImageBinding
 import com.longph.mynews.databinding.ItemSectionTextBinding
 import com.longph.mynews.databinding.ItemSectionVideoBinding
 import com.longph.mynews.presentation.adapters.viewholders.newsdetail.NewsDetailHolder
 
-class NewsDetailAdapter: RecyclerView.Adapter<NewsDetailHolder>() {
+class NewsDetailAdapter : RecyclerView.Adapter<NewsDetailHolder>() {
 
     enum class SectionType {
         NONE, TEXT, VIDEO, IMAGE
@@ -21,7 +19,7 @@ class NewsDetailAdapter: RecyclerView.Adapter<NewsDetailHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsDetailHolder {
         var inflater = LayoutInflater.from(parent.context)
-        var dataBinding = when(viewType){
+        var dataBinding = when (viewType) {
             SectionType.VIDEO.ordinal -> ItemSectionVideoBinding.inflate(inflater, parent, false)
             SectionType.IMAGE.ordinal -> ItemSectionImageBinding.inflate(inflater, parent, false)
             else -> ItemSectionTextBinding.inflate(inflater, parent, false)
@@ -41,7 +39,7 @@ class NewsDetailAdapter: RecyclerView.Adapter<NewsDetailHolder>() {
         holder.setupData(position, sections[position])
     }
 
-    fun updateList(title: String, description: String, sections: List<Section>){
+    fun updateList(title: String, description: String, sections: List<Section>) {
         this.sections.clear()
         this.sections.add(Section(SectionType.NONE.ordinal, title, null, null))
         this.sections.add(Section(SectionType.NONE.ordinal, null, description, null))

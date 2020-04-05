@@ -10,10 +10,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RestClientImpl : RestClient {
 
-    override fun <T>createRestApi(interfaceClass: Class<T>) : T{
+    override fun <T> createRestApi(interfaceClass: Class<T>): T {
         var gson = Gson().newBuilder()
-                    .setPrettyPrinting()
-                    .create()
+            .setPrettyPrinting()
+            .create()
 
         var httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -32,7 +32,7 @@ class RestClientImpl : RestClient {
         return retrofit.create(interfaceClass)
     }
 
-    override fun initDefaultHeader() : Interceptor {
+    override fun initDefaultHeader(): Interceptor {
         var interceptor = Interceptor.invoke { chain ->
             var request = chain.request().newBuilder()
                 .addHeader("Content-Type", "application/json")

@@ -9,7 +9,7 @@ import com.longph.mynews.presentation.adapters.viewholders.newsfeed.NewsFeedHold
 import com.longph.mynews.presentation.adapters.viewholders.newsfeed.NewsGalleriesHolder
 import com.longph.mynews.presentation.adapters.viewholders.newsfeed.NewsVideoHolder
 
-class NewsFeedAdapter() : RecyclerView.Adapter<NewsFeedHolder>(){
+class NewsFeedAdapter : RecyclerView.Adapter<NewsFeedHolder>() {
 
     enum class FeedType {
         OVERVIEW, VIDEO, GALLERY
@@ -20,7 +20,7 @@ class NewsFeedAdapter() : RecyclerView.Adapter<NewsFeedHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsFeedHolder {
         var inflater = LayoutInflater.from(parent.context)
         var itemNewsBinding = ItemNewsBinding.inflate(inflater, parent, false)
-        return when(viewType){
+        return when (viewType) {
             FeedType.VIDEO.ordinal -> NewsVideoHolder(itemNewsBinding)
             FeedType.GALLERY.ordinal -> NewsGalleriesHolder(itemNewsBinding)
             else -> NewsFeedHolder(itemNewsBinding)
@@ -29,7 +29,7 @@ class NewsFeedAdapter() : RecyclerView.Adapter<NewsFeedHolder>(){
 
     override fun getItemViewType(position: Int): Int {
         var news = newsList[position]
-        var feedType = when(news.content_type){
+        var feedType = when (news.content_type) {
             "video" -> FeedType.VIDEO.ordinal
             "story", "article", "gallery", "long_form" -> FeedType.GALLERY.ordinal
             else -> FeedType.OVERVIEW.ordinal
@@ -45,7 +45,7 @@ class NewsFeedAdapter() : RecyclerView.Adapter<NewsFeedHolder>(){
         holder.setupData(position, newsList[position])
     }
 
-    fun updateList(newsList: List<News>){
+    fun updateList(newsList: List<News>) {
         this.newsList.clear()
         this.newsList.addAll(newsList)
         notifyDataSetChanged()

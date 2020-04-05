@@ -4,7 +4,7 @@ import okhttp3.Interceptor
 
 interface RestClient {
 
-    fun <T>createRestApi(interfaceClass: Class<T>) : T
-    fun initDefaultHeader() : Interceptor
+    fun <T> createRestApi(interfaceClass: Class<T>): T
+    fun initDefaultHeader(): Interceptor
 
 }

@@ -12,25 +12,27 @@ import com.longph.domain.News
 import com.longph.mynews.presentation.adapters.viewholders.AbstractNewsHolder
 import kotlinx.android.synthetic.main.item_news.view.*
 
-class NewsGalleriesHolder (
+class NewsGalleriesHolder(
     dataBinding: ViewDataBinding
-) : NewsFeedHolder(dataBinding){
+) : NewsFeedHolder(dataBinding) {
 
     override fun setupData(position: Int, news: News) {
         super.setupData(position, news)
 
-        news.images?.apply {
-            var recyclerView = RecyclerView(itemView.context).apply{
+        news.images.apply {
+            var recyclerView = RecyclerView(itemView.context).apply {
                 layoutParams = FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT)
-                layoutManager = LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL, false)
+                    FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT
+                )
+                layoutManager =
+                    LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL, false)
                 adapter = ImageAdapter(news.images)
             }
             itemView.flContent.addView(recyclerView)
         }
     }
 
-    class ImageAdapter(var imageList: List<Image>) : RecyclerView.Adapter<ImageHolder>(){
+    class ImageAdapter(var imageList: List<Image>) : RecyclerView.Adapter<ImageHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
             var scaledImageWidth = calculateImageWidth(parent.context, imageList.size)
             var scaledImageHeight = calculateImageHeight(scaledImageWidth)
@@ -40,30 +42,30 @@ class NewsGalleriesHolder (
             return ImageHolder(imageView)
         }
 
-        override fun getItemCount(): Int = imageList.size?: 0
+        override fun getItemCount(): Int = imageList.size
 
         override fun onBindViewHolder(holder: ImageHolder, position: Int) {
             holder.setImageUrl(imageList[position].href)
         }
 
-        fun calculateImageWidth(context: Context, imagesListSize: Int) : Int{
+        fun calculateImageWidth(context: Context, imagesListSize: Int): Int {
             var deviceWidth = context.resources.displayMetrics.widthPixels
-            if(imagesListSize >= 3){
+            if (imagesListSize >= 3) {
                 return deviceWidth / 3
             }
             return deviceWidth / imagesListSize
         }
 
-        fun calculateImageHeight(imageWidth: Int) : Int{
+        fun calculateImageHeight(imageWidth: Int): Int {
             return (imageWidth * (3f / 4)).toInt()
         }
     }
 
-    class ImageHolder(private val imageView: ImageView) : AbstractNewsHolder<Any>(imageView){
+    class ImageHolder(private val imageView: ImageView) : AbstractNewsHolder<Any>(imageView) {
 
         override fun setupData(position: Int, item: Any) {}
 
-        fun setImageUrl(imageUrl: String){
+        fun setImageUrl(imageUrl: String) {
             setupImageLoader(itemView.context, imageUrl, imageView)
         }
     }

@@ -14,13 +14,13 @@ class ApplicationModule {
 
     @Singleton
     @Provides
-    fun provideRestClient() : RestClient {
+    fun provideRestClient(): RestClient {
         return RestClientImpl()
     }
 
     @Singleton
     @Provides
-    fun provideNewsRepository() : NewsRepository{
+    fun provideNewsRepository(): NewsRepository {
         var restApis = provideRestClient().createRestApi(RestAPIs::class.java)
         return NewsRepositoryImpl(restApis)
     }

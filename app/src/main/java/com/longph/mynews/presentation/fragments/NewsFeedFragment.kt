@@ -5,26 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.longph.mynews.MainApplication
-import com.longph.mynews.R
 import com.longph.mynews.databinding.LayoutNewsListBinding
 import com.longph.mynews.presentation.adapters.NewsFeedAdapter
-import com.longph.mynews.presentation.adapters.viewholders.newsfeed.NewsFeedHolder
 import com.longph.mynews.presentation.viewmodel.NewsFeedViewModel
 import com.longph.mynews.presentation.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.layout_news_list.*
-import tcking.github.com.giraffeplayer2.VideoView
 import javax.inject.Inject
 
 
-class NewsFeedFragment : Fragment(){
+class NewsFeedFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<NewsFeedViewModel>
@@ -36,7 +30,7 @@ class NewsFeedFragment : Fragment(){
     override fun onAttach(context: Context) {
         super.onAttach(context)
         application = activity?.application as MainApplication
-        application?.applicationComponent?.inject(this)
+        application.applicationComponent.inject(this)
     }
 
     override fun onCreateView(
@@ -45,7 +39,10 @@ class NewsFeedFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         newsListBinding = LayoutNewsListBinding.inflate(inflater, container, false).apply {
-            viewModel = ViewModelProvider(viewModelStore, viewModelFactory).get(NewsFeedViewModel::class.java)
+            viewModel = ViewModelProvider(
+                viewModelStore,
+                viewModelFactory
+            ).get(NewsFeedViewModel::class.java)
         }
         return newsListBinding.root
     }
@@ -56,20 +53,20 @@ class NewsFeedFragment : Fragment(){
         newsListBinding.viewModel?.getNewsList()
     }
 
-    private fun setupViews(){
+    private fun setupViews() {
         var linearLayoutManager = LinearLayoutManager(activity!!)
         rcvNewsList.layoutManager = linearLayoutManager
         adapter = NewsFeedAdapter()
         rcvNewsList.adapter = adapter
     }
 
-    private fun setupObservers(){
+    private fun setupObservers() {
         newsListBinding.viewModel?.getNewsListLiveData?.observe(viewLifecycleOwner, Observer {
             adapter.updateList(it)
         })
 
-        newsListBinding.viewModel?.loadingData?.observe(viewLifecycleOwner, Observer {isLoading ->
-            if(isLoading)
+        newsListBinding.viewModel?.loadingData?.observe(viewLifecycleOwner, Observer { isLoading ->
+            if (isLoading)
                 llLoadingCircle.visibility = View.VISIBLE
             else
                 llLoadingCircle.visibility = View.GONE

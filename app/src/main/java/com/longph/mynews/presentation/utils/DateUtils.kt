@@ -1,6 +1,5 @@
 package com.longph.mynews.presentation.utils
 
-import java.lang.Exception
 import java.text.SimpleDateFormat
 
 class DateUtils {
@@ -10,10 +9,11 @@ class DateUtils {
         var shortDateFormat = SimpleDateFormat("MMM dd, yyyy")
 
         @JvmStatic
-        fun convertLongDateToShortDate(longDate: String): String{
+        fun convertLongDateToShortDate(longDate: String): String {
             try {
                 return shortDateFormat.format(longDateFormat.parse(longDate))
-            }catch (e: Exception){}
+            } catch (e: Exception) {
+            }
             return ""
         }
     }

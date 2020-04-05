@@ -17,11 +17,11 @@
         android:padding="10dp">
 
         <TextView
+            style="@style/TitleTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="@{newsItem.title}"
-            style="@style/TitleTextStyle"/>
+            android:text="@{newsItem.title}" />
 
         <FrameLayout
             android:id="@+id/flContent"
@@ -35,25 +35,25 @@
             android:orientation="horizontal">
 
             <TextView
+                style="@style/ContentTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{newsItem.publisher.name}"
-                style="@style/ContentTextStyle"/>
+                android:text="@{newsItem.publisher.name}" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="•"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:textSize="@dimen/content_text_size"
-                android:textColor="@android:color/darker_gray"/>
+                android:text="•"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/content_text_size" />
 
             <TextView
+                style="@style/ContentTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{DateUtils.convertLongDateToShortDate(newsItem.published_date)}"
-                style="@style/ContentTextStyle"/>
+                android:text="@{DateUtils.convertLongDateToShortDate(newsItem.published_date)}" />
 
         </LinearLayout>
 
