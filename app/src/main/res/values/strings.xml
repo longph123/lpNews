@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">My News</string>
+
+    <string-array name="tab_names">
+        <item>Theo dõi</item>
+        <item>Cho bạn</item>
+        <item>Bóng đá</item>
+        <item>Công nghệ</item>
+        <item>Đào tạo</item>
+    </string-array>
+</resources>
