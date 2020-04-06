@@ -26,8 +26,8 @@ class NewsGalleriesHolder(
                 )
                 layoutManager =
                     LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL, false)
-                adapter = ImageAdapter(news.images)
             }
+            recyclerView.adapter = ImageAdapter(this@apply)
             itemView.flContent.addView(recyclerView)
         }
     }

@@ -39,7 +39,7 @@ class NewsDetailAdapter : RecyclerView.Adapter<NewsDetailHolder>() {
         holder.setupData(position, sections[position])
     }
 
-    fun updateList(title: String, description: String, sections: List<Section>) {
+    fun updateList(title: String?, description: String?, sections: List<Section>) {
         this.sections.clear()
         this.sections.add(Section(SectionType.NONE.ordinal, title, null, null))
         this.sections.add(Section(SectionType.NONE.ordinal, null, description, null))

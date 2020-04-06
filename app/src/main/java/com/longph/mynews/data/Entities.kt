@@ -1,20 +1,32 @@
 package com.longph.domain
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
+import com.longph.mynews.data.database.NewsTypeConverters
 
+@Entity(tableName = "news")
+@TypeConverters(NewsTypeConverters::class)
 data class News(
-    @SerializedName("document_id") val documentId: String,
-    @SerializedName("title") val title: String,
-    @SerializedName("description") val description: String,
-    @SerializedName("content_type") val content_type: String,
-    @SerializedName("published_date") val published_date: String,
-    @SerializedName("publisher") val publisher: Publisher,
-    @SerializedName("origin_url") val originUrl: String,
-    @SerializedName("avatar") val avatar: Image,
-    @SerializedName("images") val images: List<Image>,
-    @SerializedName("content") val content: Content,
-    @SerializedName("sections") val sections: List<Section>
-)
+    @PrimaryKey @SerializedName("document_id") var documentId: String,
+    @SerializedName("title") var title: String?,
+    @SerializedName("description") var description: String?,
+    @SerializedName("content_type") var content_type: String?,
+    @SerializedName("published_date") var published_date: String?,
+    @SerializedName("publisher") var publisher: Publisher?,
+    @SerializedName("origin_url") var originUrl: String?,
+    @SerializedName("avatar") var avatar: Image?,
+    @SerializedName("images") var images: List<Image>?,
+    @SerializedName("content") var content: Content?,
+    @Ignore @SerializedName("sections") val sections: List<Section>
+) {
+    constructor() : this(
+        "", null, null, null,
+        null, null, null, null, listOf(), null, listOf()
+    )
+}
 
 data class Section(
     @SerializedName("section_type") val sectionType: Int,
@@ -28,6 +40,7 @@ data class NewsItems(
 )
 
 data class Publisher(
+    @PrimaryKey
     val id: String,
     val name: String,
     val icon: String

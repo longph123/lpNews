@@ -14,26 +14,28 @@ class NewsVideoHolder(
 
     override fun setupData(position: Int, news: News) {
         super.setupData(position, news)
-        var deviceWidth = itemView.context.resources.displayMetrics.widthPixels
-        var aspectRadio =
-            news.content.previewImage.height.toFloat() / news.content.previewImage.width
-        var videoPreviewHeight = calculatedHeight(deviceWidth, aspectRadio)
-        var videoPreview = ImageView(itemView.context)
-        var playButton = ImageView(itemView.context)
+        news.content?.apply {
+            var deviceWidth = itemView.context.resources.displayMetrics.widthPixels
+            var aspectRadio =
+                this.previewImage.height.toFloat() / this.previewImage.width
+            var videoPreviewHeight = calculatedHeight(deviceWidth, aspectRadio)
+            var videoPreview = ImageView(itemView.context)
+            var playButton = ImageView(itemView.context)
 
 
-        var layoutParams = FrameLayout.LayoutParams(
-            FrameLayout.LayoutParams.WRAP_CONTENT,
-            FrameLayout.LayoutParams.WRAP_CONTENT
-        )
-        layoutParams.gravity = Gravity.CENTER
-        playButton.layoutParams = layoutParams
-        playButton.setImageResource(R.drawable.ic_play_button)
+            var layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT
+            )
+            layoutParams.gravity = Gravity.CENTER
+            playButton.layoutParams = layoutParams
+            playButton.setImageResource(R.drawable.ic_play_button)
 
-        videoPreview.layoutParams = FrameLayout.LayoutParams(deviceWidth, videoPreviewHeight)
-        setupImageLoader(itemView.context, news.content.previewImage.href, videoPreview)
-        itemView.flContent.addView(videoPreview)
-        itemView.flContent.addView(playButton)
+            videoPreview.layoutParams = FrameLayout.LayoutParams(deviceWidth, videoPreviewHeight)
+            setupImageLoader(itemView.context, this.previewImage.href, videoPreview)
+            itemView.flContent.addView(videoPreview)
+            itemView.flContent.addView(playButton)
+        }
     }
 
     private fun calculatedHeight(width: Int, aspectRadio: Float) = (width * aspectRadio).toInt()

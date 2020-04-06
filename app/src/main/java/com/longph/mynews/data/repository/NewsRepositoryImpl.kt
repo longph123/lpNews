@@ -4,21 +4,29 @@ import com.longph.domain.News
 import com.longph.domain.NewsItems
 import com.longph.domain.NewsRepository
 import com.longph.movieapp_mvvm.data.RestAPIs
+import com.longph.mynews.data.database.NewsFeedDao
 import com.longph.mynews.data.remote.ApiResponse
-import retrofit2.Response
 import java.io.IOException
 
 class NewsRepositoryImpl constructor(
-    val restAPIs: RestAPIs
+    private val restAPIs: RestAPIs,
+    private val newsFeedDao: NewsFeedDao
 ) : NewsRepository {
 
     override suspend fun getNewsList(): ApiResponse<NewsItems> {
         return safeApiCall(
             call = {
                 var result = restAPIs.getNewsList()
-                handleResult(result)
+                if (result.isSuccessful) {
+                    if (result.body() is NewsItems)
+                        cacheNews((result.body() as NewsItems).items)
+
+                    ApiResponse.Success(result.body())
+                } else
+                    ApiResponse.Success(NewsItems(newsFeedDao.getNewsList()))
             },
-            errorMessage = "IO Exception"
+            errorMessage = "Recheck your network connection and try again",
+            loadFromCache = ApiResponse.Success(NewsItems(newsFeedDao.getNewsList()))
         )
     }
 
@@ -26,26 +34,35 @@ class NewsRepositoryImpl constructor(
         return safeApiCall(
             call = {
                 var result = restAPIs.getNewsDetail()
-                handleResult(result)
+                if (result.isSuccessful) {
+                    ApiResponse.Success(result.body())
+                } else
+                    ApiResponse.Error(result.code(), result.message())
             },
-            errorMessage = "IO Exception"
+            errorMessage = "Recheck your network connection and try again",
+            loadFromCache = null
         )
-    }
-
-    private fun <T : Any> handleResult(result: Response<T>): ApiResponse<T> {
-        if (result.isSuccessful)
-            return ApiResponse.Success(result.body())
-        return ApiResponse.Error(result.code(), result.message())
     }
 
     suspend fun <T : Any> safeApiCall(
         call: suspend () -> ApiResponse<T>,
-        errorMessage: String
+        errorMessage: String,
+        loadFromCache: ApiResponse<T>?
     ): ApiResponse<T> {
         return try {
             call()
         } catch (e: Exception) {
-            ApiResponse.Exception(IOException(errorMessage, e))
+            loadFromCache?.apply {
+                return loadFromCache
+            }
+            return ApiResponse.Exception(IOException(errorMessage, e))
+        }
+    }
+
+    private fun cacheNews(customers: List<News>?) {
+        if (customers != null) {
+            newsFeedDao.deleteAllNews()
+            newsFeedDao.insertAllNews(customers)
         }
     }
 }

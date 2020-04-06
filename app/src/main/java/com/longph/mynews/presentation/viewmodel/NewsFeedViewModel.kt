@@ -23,6 +23,7 @@ class NewsFeedViewModel(val getNewsUseCase: GetNewsUseCase) : BaseViewModel() {
             when (apiResponse) {
                 is ApiResponse.Success -> getNewsListLiveData.postValue(apiResponse.result?.items)
                 is ApiResponse.Error -> errorMessage.postValue(apiResponse.errorMessage)
+                is ApiResponse.Exception -> errorMessage.postValue(apiResponse.exception.message)
             }
         }
 
@@ -36,6 +37,7 @@ class NewsFeedViewModel(val getNewsUseCase: GetNewsUseCase) : BaseViewModel() {
             when (apiResponse) {
                 is ApiResponse.Success -> getNewsDetailLiveData.postValue(apiResponse.result)
                 is ApiResponse.Error -> errorMessage.postValue(apiResponse.errorMessage)
+                is ApiResponse.Exception -> errorMessage.postValue(apiResponse.exception.message)
             }
         }
 
